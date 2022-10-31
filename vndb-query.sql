@@ -57,3 +57,9 @@ FROM releases_vn rv
 JOIN vn v ON rv.vid = v.id
 JOIN releases r ON rv.id = r.id
 GROUP BY minage;
+
+-- =====================  Relation Between Producer ===================== 
+SELECT pr.id, pr.pid, pr.relation, p1.name AS "p1_name", p2.name AS "p2_name"
+FROM producers_relations pr
+JOIN producers p1 ON pr.id=p1.id
+JOIN producers p2 ON pr.pid=p2.id;
