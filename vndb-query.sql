@@ -68,6 +68,26 @@ JOIN producers p2 ON pr.pid=p2.id;
 SELECT vs.id, vs.aid, vs.role, v.title, sa.name
 FROM vn_staff vs
 JOIN vn v ON v.id = vs.id
-JOIN staff s ON vs.aid = s.aid
-JOIN staff_alias sa ON sa.id = s.id
--- LIMIT 50000 OFFSET 50000;
+JOIN staff_alias sa ON sa.aid = vs.aid;
+
+-- =====================  Staff with Most Works =====================
+SELECT sa.name, COUNT(sa.name), 'https://vndb.org/' || sa.id AS "vndb_link"
+FROM vn_staff vs
+JOIN vn v ON v.id = vs.id
+JOIN staff_alias sa ON sa.aid = vs.aid
+GROUP BY sa.name, sa.id
+ORDER BY COUNT(sa.name) DESC;
+
+-- =====================  Staff with Most Works in Specific Producer =====================
+SELECT sa.name, COUNT(sa.name)
+FROM vn_staff vs
+JOIN vn v ON v.id = vs.id
+JOIN staff_alias sa ON sa.aid = vs.aid
+JOIN releases_vn rv ON rv.vid = v.id
+JOIN releases r ON r.id = rv.id
+JOIN releases_producers rp ON rp.id = r.id
+JOIN producers p ON p.id = rp.pid
+-- You can change here
+WHERE p.name = 'Key'
+GROUP BY sa.name
+ORDER BY COUNT(sa.name) DESC;
