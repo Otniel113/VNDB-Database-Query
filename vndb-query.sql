@@ -63,3 +63,11 @@ SELECT pr.id, pr.pid, pr.relation, p1.name AS "p1_name", p2.name AS "p2_name"
 FROM producers_relations pr
 JOIN producers p1 ON pr.id=p1.id
 JOIN producers p2 ON pr.pid=p2.id;
+
+-- =====================  VN and Their Staff ===================== 
+SELECT vs.id, vs.aid, vs.role, v.title, sa.name
+FROM vn_staff vs
+JOIN vn v ON v.id = vs.id
+JOIN staff s ON vs.aid = s.aid
+JOIN staff_alias sa ON sa.id = s.id
+-- LIMIT 50000 OFFSET 50000;
