@@ -91,3 +91,10 @@ JOIN producers p ON p.id = rp.pid
 WHERE p.name = 'Key'
 GROUP BY sa.name
 ORDER BY COUNT(sa.name) DESC;
+
+-- =====================  Official VN Relation =====================
+SELECT v1.title AS "Source", v2.title AS "Target"
+FROM vn_relations vr
+JOIN vn v1 ON v1.id = vr.id
+JOIN vn v2 ON v2.id = vr.vid
+WHERE vr.official = true;
